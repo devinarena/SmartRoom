@@ -1,0 +1,63 @@
+.ConnectDialog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--container-background);
+    padding: 3%;
+    border-radius: 25px;
+}
+
+.ConnectDialog form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.ConnectDialog form * {
+    margin: 1% 0;
+}
+
+.ConnectDialog form label {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: var(--text-color);
+    font-size: 2rem;
+}
+
+.ConnectDialog form label input[type=text], .ConnectDialog form label input[type=number] {
+    outline: none;
+    font-size: 1.75rem;
+}
+
+.ConnectDialog form button {
+    font-size: 1.75rem;
+    padding: 2%;
+    background: var(--button-color);
+    color: var(--text-color);
+    border: 3px solid var(--button-border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 1s ease, border 1s ease;
+    -webkit-transition: background 1s ease, border 1s ease;
+    -moz-transition: background 1s ease, border 1s ease;
+}
+
+.ConnectDialog form button:hover {
+    background: var(--button-hover);
+    border-color: var(--button-color);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
