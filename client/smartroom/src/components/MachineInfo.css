@@ -1,0 +1,29 @@
+.MachineInfo {
+    width: 85%;
+    background: var(--container-background);
+    border-radius: 20px;
+    padding: 5%;
+    margin: 5% 0;
+}
+
+.MachineInfo h1 {
+    text-align: center;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    font-size: 2.5vw;
+}
+
+.MachineInfo p {
+  text-align: center;
+  color: var(--text-color);
+  font-size: 1.75rem;
+  font-size: 1.5vw;
+  line-height: 0;
+}
+
+.MachineInfoItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
