@@ -1,15 +1,21 @@
-import socket
+import socketio
 
-HOST = "127.0.0.1"
-PORT = 30241
+sio = socketio.Client()
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
-    cmd = None
-    while True:
-        cmd = input("CMD > ")
-        if not cmd:
-            break
-        s.sendall(cmd.encode("utf-8"))
-        data = s.recv(1024)
-        print(data.decode("utf-8"))
+@sio.event
+def connect():
+    print('connection established')
+
+@sio.event
+def disconnect():
+    print('disconnected from server')
+
+@sio.on("timechange")
+def change(time):
+    print(time)
+
+def main():
+    sio.connect('http://127.0.0.1:5000')
+
+if __name__ == '__main__':
+    main()

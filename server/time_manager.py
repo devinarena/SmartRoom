@@ -16,6 +16,9 @@ class TimeManager:
 
         self.lib = ctypes.windll.kernel32
 
+    ##
+    # Sends updated times over socketio to the client.
+    #
     def update_times(self) -> None:
         while True:
             self.socketio.emit("timechange", {
@@ -23,8 +26,13 @@ class TimeManager:
                 "server_uptime": self.get_server_uptime(),
                 "machine_uptime": self.get_host_uptime()
             })
-            time.sleep(1)
+            self.socketio.sleep(1)
 
+    ##
+    # Gets the server uptime, time since server began running.
+    # 
+    # returns - the server uptime as a string in the format Hh Mm Ss
+    #
     def get_server_uptime(self) -> str:
         elapsed = int(time.time() - self.start)
         minutes, seconds = divmod(elapsed, 60)
@@ -32,6 +40,11 @@ class TimeManager:
 
         return f"{hours}h {minutes}m {seconds}s"
 
+    ##
+    # Gets the host uptime, time since host machine began running.
+    # 
+    # returns - the host machine uptime as a string in the format Hh Mm Ss
+    #
     def get_host_uptime(self) -> str:
         elapsed = int(self.lib.GetTickCount64() // 1000)
         minutes, seconds = divmod(elapsed, 60)

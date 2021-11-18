@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './CommandExecutor.css'
 
 /**
@@ -32,9 +32,11 @@ const CommandExecutor = (props) => {
     /**
      * On command output, append the result to the command history.
      */
-    props.socket.on("commandOutput", output => {
-        setCommandHistory(commandHistory + output + "\n");
-    });
+    useEffect(() => {
+        props.socket.on("commandOutput", output => {
+            setCommandHistory(commandHistory + output + "\n");
+        });
+    }, [props.socket, commandHistory]);
 
     return (
         <div className="CommandExecutor">

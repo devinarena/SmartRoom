@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './MachineInfo.css';
 
 /**
@@ -22,11 +22,13 @@ const MachineInfo = (props) => {
     /**
      * Update times when we receive a time change from the server.
      */
-    props.socket.on("timechange", timeData => {
-        setTime(timeData["machine_time"]);
-        setServerUptime(timeData["server_uptime"]);
-        setMachineUptime(timeData["machine_uptime"]);
-    });
+    useEffect(() => {
+        props.socket.on("timechange", timeData => {
+            setTime(timeData["machine_time"]);
+            setServerUptime(timeData["server_uptime"]);
+            setMachineUptime(timeData["machine_uptime"]);
+        });
+    }, [props.socket]);
 
     return (
         <div className="MachineInfo">

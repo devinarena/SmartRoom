@@ -3,28 +3,26 @@ from flask import Flask
 from flask_socketio import SocketIO
 import threading
 import time_manager
-import os
+import webcam_manager
 import subprocess
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "awdasd4w564as56d4w564"
+app.config["SECRET_KEY"] = "dkfnen4568asd1ot56urew3pqnc712"
 
-sio = SocketIO(app, async_mode="threading", cors_allowed_origins="*")
+sio = SocketIO(app, async_mode="threading", cors_allowed_origins="*", )
 
 HOST = "0.0.0.0"
 
 def main() -> None:
-    app.debug = True
     app.host = HOST
 
-    time_mgr = time_manager.TimeManager(sio)    
+    time_mgr = time_manager.TimeManager(sio)
+    sio.start_background_task(target=time_mgr.update_times)
 
-    time_thread = threading.Thread(target=time_mgr.update_times)
-    time_thread.daemon = True
-    time_thread.start()
+    webcam_mgr = webcam_manager.WebcamManager(sio)
+    sio.start_background_task(target=webcam_mgr.update_webcam)
 
     sio.run(app, host=HOST, port=5000)
-
 
 @sio.on("executeCommand")
 def on_command(cmd):
